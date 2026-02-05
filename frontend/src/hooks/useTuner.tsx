@@ -19,7 +19,7 @@ export function useTuner() {
 
       const audioContext = new AudioContext();
       const analyser = audioContext.createAnalyser();
-      analyser.fftSize = 2048;
+      analyser.fftSize = 8192;
 
       const source = audioContext.createMediaStreamSource(stream);
       source.connect(analyser);
