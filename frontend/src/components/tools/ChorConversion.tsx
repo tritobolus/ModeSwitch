@@ -64,7 +64,7 @@ export const ScaleChanger = () => {
   }, [fromNote, scale]);
 
   return (
-    <div className="flex flex-col gap-y-5 w-225 mt-2  p-5 rounded-2xl">
+    <div className="flex flex-col gap-y-5  mt-2 px-5 sm:px-10 py-5 rounded-2xl">
       <h2 className="text-3xl text-center font-semibold mb-3">
         chord <span className="text-blue-500">Conversion</span>
       </h2>
@@ -192,7 +192,7 @@ export const ScaleChanger = () => {
                   });
                 }}
               >
-                <SelectTrigger className="w-20 sm:w-25">
+                <SelectTrigger className="w-20 sm:w-30">
                   <SelectValue placeholder={`Chord ${index + 1}`} />
                 </SelectTrigger>
                 <SelectContent>

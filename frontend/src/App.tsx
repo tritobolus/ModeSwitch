@@ -10,14 +10,14 @@ import { Tuner } from "./components/tools/Tuner";
 import { Metronome } from "./components/tools/Metronome";
 import { CapoChordConverter } from "./components/tools/CapoChordConverter";
 import { GroupChords } from "./components/tools/GroupChords";
-import {Home} from './components/Home'
+import {Body} from './components/Body'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Body/>} />
           <Route path="/tools" element={<Tools />}> 
             <Route path="chord-conversion" element={<ScaleChanger/>}/>
             <Route path="capo-chord-converter" element={<CapoChordConverter/>}/>

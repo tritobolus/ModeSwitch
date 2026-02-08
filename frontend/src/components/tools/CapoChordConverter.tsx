@@ -92,7 +92,7 @@ export const CapoChordConverter = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5 ">
+      <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5 px-5 sm:px-10 py-5 ">
         <h2 className="text-3xl text-center font-semibold mb-3">
           CapoChord <span className="text-blue-500">Converter</span>
         </h2>
@@ -198,7 +198,7 @@ export const CapoChordConverter = () => {
                     })
                   }
                 >
-                  <SelectTrigger className="w-20 sm:w-25">
+                  <SelectTrigger className="w-20 sm:w-30">
                     <SelectValue placeholder={`Chord ${index + 1}`} />
                   </SelectTrigger>
                   <SelectContent>
@@ -245,7 +245,7 @@ export const CapoChordConverter = () => {
                     {selectedChords.map((chord, index) => (
                       <th
                         key={index}
-                        className="px-4 py-2 border border-gray-700"
+                        className="px-4 py-2 border border-gray-700 "
                       >
                         {chord || `Chord ${index + 1}`}
                       </th>

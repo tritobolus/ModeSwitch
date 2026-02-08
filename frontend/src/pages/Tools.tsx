@@ -6,7 +6,7 @@ export const Tools = () => {
   return (
     <>
       {isToolsHome && (
-        <div className="flex flex-col px-5 py-4 h-[calc(100vh-7rem)] overflow-y-auto">
+        <div className="flex flex-col px-5 py-4 h-[calc(100vh-7rem)] text-gray-800">
           <TypeAnimation
             className=" font-semibold font-mono "
             sequence={[
@@ -25,15 +25,15 @@ export const Tools = () => {
               1000, // wait 1s before replacing "Mice" with "Hamsters"
             ]}
             wrapper="span"
-            speed={40}
+            speed={50}
             style={{ fontSize: "20px", display: "inline-block" }}
             repeat={Infinity}
           />
 
-          <div className="px-8 mt-5 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-y-5 sm:gap-10">
+          <div className="px-8 mt-5 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-y-5 sm:gap-10 h-[calc(100vh-7rem)] overflow-y-auto">
             <Link
               to={"chord-conversion"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className=" h-50 w-70 flex flex-col gap-y-5 justify-between bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">
                 Chord Conversion
@@ -46,7 +46,7 @@ export const Tools = () => {
             </Link>
             <Link
               to={"capo-chord-converter"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className="h-50 w-70 flex flex-col gap-y-5 justify-between  bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">
                 Capo Chord Converter
@@ -59,7 +59,7 @@ export const Tools = () => {
             </Link>
             <Link
               to={"group-chords"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className="h-50 w-70 flex flex-col gap-y-5 justify-between  bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">
                 Find Group Chords
@@ -72,7 +72,7 @@ export const Tools = () => {
             </Link>
             <Link
               to={"tuner"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className="h-50 w-70 flex flex-col gap-y-5 justify-between  bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">Tuner</h2>
               <p className="">
@@ -83,7 +83,7 @@ export const Tools = () => {
             </Link>
             <Link
               to={"metronome"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className="h-50 w-70 flex flex-col gap-y-5 justify-between  bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">Metronome</h2>
               <p className="">
@@ -95,7 +95,7 @@ export const Tools = () => {
 
             <Link
               to={"metronome"}
-              className=" h-50 w-70 flex flex-col gap-y-5 justify-between rounded-2xl bg-gray-100 shadow-xl p-5 hover:cursor-pointer hover:scale-103 duration-200 transition-all hover:shadow-2xl"
+              className="h-50 w-70 flex flex-col gap-y-5 justify-between  bg-gray-50 shadow-lg p-5 hover:cursor-pointer border border-dashed hover:border-blue-600  duration-200 transition-all hover:shadow-xl"
             >
               <h2 className="text-3xl font-bold text-blue-500 ">
                 Chord Library

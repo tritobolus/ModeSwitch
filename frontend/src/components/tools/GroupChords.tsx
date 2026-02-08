@@ -16,7 +16,7 @@ export const GroupChords = () => {
   const [scale, setScale] = useState<string>("");
   return (
     <>
-      <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5 ">
+      <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5 px-5 sm:px-10 py-5 ">
         <h2 className="text-3xl text-center font-semibold mb-3">
           Group <span className="text-blue-500">Chords</span>
         </h2>
@@ -27,7 +27,7 @@ export const GroupChords = () => {
           ))}
         </div>
 
-        <div className="flex gap-x-3">
+        <div className="flex gap-x-3 justify-center">
             <div>
               <label>Root</label>
               <Select onValueChange={setNote}>
@@ -64,7 +64,7 @@ export const GroupChords = () => {
             </div>
           </div>
 
-          <p>Your Group Chords are :</p>
+          <p className="text-center">Your Group Chords are :</p>
 
        <div className="flex justify-center ">
           {note && scale && (

@@ -144,7 +144,7 @@ export const Tuner = () => {
   }, [frequency]);
 
   return (
-    <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5 ">
+    <div className="flex flex-col gap-y-5 sm:gap-y-4 mt-5  ">
       <h2 className="text-3xl text-center font-semibold mb-3">
         My<span className="text-blue-500">Tuner</span>
       </h2>
@@ -162,8 +162,8 @@ export const Tuner = () => {
           {tuningMessage}
         </p>
       </div>
-      <div className="flex p-2 relative">
-        <div className="flex flex-col absolute left-7 top-30 gap-y-3  ">
+      <div className="flex p-2 relative justify-center overflow-hidden">
+        <div className="flex flex-col absolute left-18 sm:left-93 top-29 gap-y-3  ">
           <button
             onClick={() => handleD3()}
             className={` bg-gray-300 rounded-full px-2 py-1  hover:cursor-pointer border-2 ${D3 && "border-black"}`}
@@ -183,8 +183,8 @@ export const Tuner = () => {
             E2
           </button>
         </div>
-        <img className="h-107" src="/guitar.png" alt="" />
-        <div className="flex flex-col absolute right-7 top-30 gap-y-3">
+        <img className="h-105" src="/guitar.png" alt="" />
+        <div className="flex flex-col absolute right-18 sm:right-93  top-29 gap-y-3">
           <button
             onClick={() => handleG3()}
             className={` bg-gray-300 rounded-full px-2 py-1  hover:cursor-pointer border-2 ${G3 && "border-black"}`}
