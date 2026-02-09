@@ -42,13 +42,13 @@ export const Body = () => {
             repeat={Infinity}
           />
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-y-5 gap-x-10 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-y-5 gap-x-10 justify-center ">
             <Link
               to="tools"
               className="flex flex-col gap-y-2 p-2 border hover:border hover:border-dashed hover:border-blue-500 "
             >
               <h1 className="text-2xl text-left">Tools</h1>
-              <div className="flex justify-center sm:px-20">
+              <div className="flex justify-center px-2 sm:px-20">
                 <img className="h-25 sm:h-40 w-25 sm:w-40 text-center" src="/repair.png" alt="" />
               </div>
             </Link>
@@ -57,7 +57,7 @@ export const Body = () => {
               className="flex flex-col gap-y-2  p-2 border hover:border hover:border-dashed hover:border-blue-500 "
             >
               <h1 className="text-2xl">Blog</h1>
-              <div className="flex justify-center sm:px-20">
+              <div className="flex justify-center  sm:px-20">
                 <img className="h-25 sm:h-40 w-25 sm:w-40 text-center" src="/blogging.png" alt="" />
               </div>
             </Link>

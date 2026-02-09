@@ -102,5 +102,25 @@ export const MinorChordDegrees = [
 export const MAJOR_SCALE_FORMULA = ["W", "W", "H", "W", "W", "W", "H"];
 export const MINOR_SCALE_FORMULA = ["W", "H", "W", "W", "H", "W", "W"];
 
+export const TUNINGS = {
+  standard: {
+    E4: 329.63,
+    B3: 246.94,
+    G3: 196.0,
+    D3: 146.83,
+    A2: 110.0,
+    E2: 82.41,
+  },
+  "D#": {
+    E4: 311.13, // actually D#4
+    B3: 233.08, // A#3
+    G3: 185.0,  // F#3
+    D3: 138.59, // C#3
+    A2: 103.83, // G#2
+    E2: 77.78,  // D#2
+  },
+};
+
+
 
 
