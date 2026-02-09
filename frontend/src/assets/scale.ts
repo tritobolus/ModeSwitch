@@ -102,7 +102,7 @@ export const MinorChordDegrees = [
 export const MAJOR_SCALE_FORMULA = ["W", "W", "H", "W", "W", "W", "H"];
 export const MINOR_SCALE_FORMULA = ["W", "H", "W", "W", "H", "W", "W"];
 
-export const TUNINGS = {
+export const GUITAR_TUNINGS = {
   standard: {
     E4: 329.63,
     B3: 246.94,
@@ -120,6 +120,28 @@ export const TUNINGS = {
     E2: 77.78,  // D#2
   },
 };
+
+export const UKULELE_TUNINGS = {
+  standard: {
+    G4: 392.0,
+    C4: 261.63,
+    E4: 329.63,
+    A4: 440.0,
+  },
+  low_g: {
+    G4: 196.0, //actually its G3
+    C4: 261.63,
+    E4: 329.63,
+    A4: 440.0,
+  },
+  "G#": {
+    G4: 369.99,  // F#4
+    C4: 246.94,   //B3
+    E4: 311.13,  // D#4
+    A4: 415.30,  // G#4
+  }
+};
+
 
 
 

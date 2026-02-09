@@ -10,21 +10,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {TUNINGS} from "../../assets/scale.ts"
+import { GUITAR_TUNINGS, UKULELE_TUNINGS } from "../../assets/scale.ts";
 import { Switch } from "@/components/ui/switch";
 
 export const Tuner = () => {
+  //guitar notes
   const [E2, setE2] = useState<boolean>(false);
   const [A2, setA2] = useState<boolean>(false);
   const [D3, setD3] = useState<boolean>(false);
   const [G3, setG3] = useState<boolean>(false);
   const [B3, setB3] = useState<boolean>(false);
   const [E4, setE4] = useState<boolean>(false);
-  const [auto, setAuto] = useState<boolean>(true);
-  const [tuning, setTuning] = useState<String>("standard");
-  const [instrument, setInstrument] = useState<String>("standard");
 
+  //ukulele notes
+  const [g4, set_G4] = useState<boolean>(false);
+  const [c4, set_C4] = useState<boolean>(false);
+  const [e4, set_E4] = useState<boolean>(false);
+  const [a4, set_A4] = useState<boolean>(false);
+
+  //to check if user want to do manually or not
+  const [auto, setAuto] = useState<boolean>(true);
+
+  //to check the whuch tuning they want
+  const [tuning, setTuning] = useState<String>("standard");
+
+  //to select the instrument
+  const [instrument, setInstrument] = useState<String>("guitar");
+
+  // to store the current note,, which is going to be tune
   const [currNote, setCurrNote] = useState<String>("");
+
+  //to store the tuning message
   const [tuningMessage, setTuningMessage] = useState("");
 
   const { frequency } = useTuner();
@@ -34,39 +50,103 @@ export const Tuner = () => {
   const note = noteData?.note ?? "";
   const octave = noteData?.octave ?? "";
 
-const autoStringSelect = (freq) => {
-  if (tuning === "standard") {
-    if (freq <= 96.2) {
-      handleE2();
-    } else if (freq <= 128.41) {
-      handleA2();
-    } else if (freq <= 171.41) {
-      handleD3();
-    } else if (freq <= 221.47) {
-      handleG3();
-    } else if (freq <= 287.815) {
-      handleB3();
-    } else {
-      handleE4();
+  const autoStringSelect = (freq) => {
+    if (instrument == "guitar") {
+      if (tuning === "standard") {
+        if (freq <= 96.2) {
+          handleE2();
+        } else if (freq <= 128.41) {
+          handleA2();
+        } else if (freq <= 171.41) {
+          handleD3();
+        } else if (freq <= 221.47) {
+          handleG3();
+        } else if (freq <= 287.815) {
+          handleB3();
+        } else {
+          handleE4();
+        }
+      } else if (tuning === "D#") {
+        if (freq <= 90.8) {
+          handleE2(); // D#2
+        } else if (freq <= 121.21) {
+          handleA2(); // G#2
+        } else if (freq <= 161.8) {
+          handleD3(); // C#3
+        } else if (freq <= 209.04) {
+          handleG3(); // F#3
+        } else if (freq <= 272.11) {
+          handleB3(); // A#3
+        } else {
+          handleE4(); // D#4
+        }
+      }
+    } else if (instrument == "ukulele") {
+      if (tuning == "standard") {
+        if (freq <= 295.63) {
+          handle_C4();
+        } else if (freq <= 360.82) {
+          handle_E4();
+        } else if (freq <= 416.0) {
+          handle_G4();
+        } else {
+          handle_A4();
+        }
+      } else if (tuning == "low_g") {
+        if (freq <= 228.82) {
+          handle_G4();
+        } else if (freq <= 295.63) {
+          handle_C4();
+        } else if (freq <= 384.82) {
+          handle_E4();
+        } else {
+          handle_A4();
+        }
+      } else if (tuning == "G#") {
+        if (freq <= 280.0) {
+          handle_C4(); // B3
+        } else if (freq <= 340.0) {
+          handle_E4(); // D#4
+        } else if (freq <= 392.0) {
+          handle_G4(); // F#4
+        } else {
+          handle_A4(); // G#4
+        }
+      }
     }
-  } else if (tuning === "D#") {
-    if (freq <= 90.8) {
-      handleE2(); // D#2
-    } else if (freq <= 121.21) {
-      handleA2(); // G#2
-    } else if (freq <= 161.8) {
-      handleD3(); // C#3
-    } else if (freq <= 209.04) {
-      handleG3(); // F#3
-    } else if (freq <= 272.11) {
-      handleB3(); // A#3
-    } else {
-      handleE4(); // D#4
-    }
-  }
-};
+  };
 
+  //handle ukulele notes
+  const handle_G4 = () => {
+    set_G4(true);
+    setCurrNote("G4");
+    set_C4(false);
+    set_E4(false);
+    set_A4(false);
+  };
+  const handle_A4 = () => {
+    set_A4(true);
+    setCurrNote("A4");
+    set_C4(false);
+    set_E4(false);
+    set_G4(false);
+  };
+  const handle_C4 = () => {
+    set_C4(true);
+    setCurrNote("C4");
+    set_A4(false);
+    set_E4(false);
+    set_G4(false);
+  };
+  const handle_E4 = () => {
+    set_E4(true);
+    setCurrNote("E4");
+    set_A4(false);
+    set_C4(false);
+    set_G4(false);
+  };
 
+  //handle guitar notes
   const handleE2 = () => {
     setE2(true);
     setCurrNote("E2");
@@ -127,56 +207,78 @@ const autoStringSelect = (freq) => {
     setB3(false);
   };
 
-  const TOLERANCE = 1.5
+  // to check the frequency,
+  const TOLERANCE = 1.5;
+
   const checkFrequency = (note: String) => {
     if (!frequency) return "Listening…";
     if (!note) return "Select a String";
 
     const freq = Number(frequency.toFixed(2));
 
-    const tuningNotes = TUNINGS[tuning];
+    if (instrument == "guitar") {
+      const tuningNotes = GUITAR_TUNINGS[tuning];
 
-    const target = tuningNotes[note];
+      const target = tuningNotes[note];
 
-    if (freq >= target - TOLERANCE && freq <= target + TOLERANCE) {
-    return "Tuned";
-  } else if (freq > target + TOLERANCE) {
-    return "Tune Down";
-  } else {
-    return "Tune Up";
-  }
+      if (freq >= target - TOLERANCE && freq <= target + TOLERANCE) {
+        return "Tuned";
+      } else if (freq > target + TOLERANCE) {
+        return "Tune Down";
+      } else {
+        return "Tune Up";
+      }
+    } else if (instrument == "ukulele") {
+      const tuningNotes = UKULELE_TUNINGS[tuning];
 
+      const target = tuningNotes?.[note];
+      if (!target) return "Select a string";
+
+      if (freq >= target - TOLERANCE && freq <= target + TOLERANCE) {
+        return "Tuned";
+      } else if (freq > target + TOLERANCE) {
+        return "Tune Down";
+      } else {
+        return "Tune Up";
+      }
+    }
   };
 
-
   useEffect(() => {
-    if(!auto) return
-    autoStringSelect(frequency)
-  },[frequency])
+    if (!auto) return;
+    autoStringSelect(frequency);
+  }, [frequency]);
 
   useEffect(() => {
     const message = checkFrequency(currNote); // pass selected note
     setTuningMessage(message);
   }, [frequency, currNote]);
 
+  //whenever instrument changes the tuning mustbe in standard
+  useEffect(() => {
+    setTuning("standard");
+    setCurrNote("");
+    setTuningMessage("");
+  }, [instrument]);
+
   const handleSwitch = () => {
-    if(auto) {
-      setAuto(false)
-    }else {
-      setAuto(true)
+    if (auto) {
+      setAuto(false);
+    } else {
+      setAuto(true);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-y-5 justify-between sm:gap-y-4 mt-5  ">
-       <h2 className="text-3xl text-center font-semibold mb-3">
+      <h2 className="text-3xl text-center font-semibold mb-3">
         My<span className="text-blue-500">Tuner</span>
       </h2>
       <div className="flex justify-between px-5 sm:px-50">
         {/* select the type of tuning */}
         <div className="flex flex-col ">
           <label htmlFor="">Tuning</label>
-          <Select onValueChange={setTuning}>
+          <Select value={tuning} onValueChange={setTuning}>
             <SelectTrigger className="w-26 sm:w-30">
               <SelectValue placeholder="Standard" />
             </SelectTrigger>
@@ -184,8 +286,19 @@ const autoStringSelect = (freq) => {
               <SelectGroup>
                 <SelectLabel>select tuning</SelectLabel>
 
-                <SelectItem value="standard">Standard</SelectItem>
-                <SelectItem value="D#">D#</SelectItem>
+                {instrument == "guitar" && (
+                  <>
+                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="D#">D#</SelectItem>
+                  </>
+                )}
+                {instrument == "ukulele" && (
+                  <>
+                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="low_g">LOW-G</SelectItem>
+                    <SelectItem value="G#">G#</SelectItem>
+                  </>
+                )}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -200,13 +313,11 @@ const autoStringSelect = (freq) => {
           <p className="text-gray-400">
             {frequency ? `${frequency.toFixed(2)} Hz` : "Listening…"}
           </p>
-          
         </div>
-        
-        <div>
 
+        <div>
           {/* select instrument */}
-           <label htmlFor="">Instrument</label>
+          <label htmlFor="">Instrument</label>
           <Select onValueChange={setInstrument}>
             <SelectTrigger className="w-26 sm:w-30">
               <SelectValue placeholder="Guitar" />
@@ -223,58 +334,133 @@ const autoStringSelect = (freq) => {
         </div>
       </div>
       <p
-            className={`font-semibold text-xl text-center ${tuningMessage == "Tuned" ? "text-green-500" : "text-red-500"}`}
-          >
-            {tuningMessage}
-          </p>
+        className={`font-semibold text-xl text-center ${tuningMessage == "Tuned" ? "text-green-500" : "text-red-500"}`}
+      >
+        {tuningMessage}
+      </p>
 
-      <div className="flex p-2 relative justify-center overflow-hidden mt-5 sm:mt-0">
-        <div className="flex gap-x-2 absolute right-10 top-0">
-              <p>Manually</p>
-              <Switch className="hover:cursor-pointer" checked={!auto}  onClick={handleSwitch} />
-            </div>
-        <div className="flex flex-col absolute left-10 sm:left-85 top-17 gap-y-4  ">
-          <button
-            onClick={() => {handleD3(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${D3 && "border-black"}`}
-          >
-            {tuning == "standard" ? "D3" : "C#3"}
-          </button>
-          <button
-            onClick={() => {handleA2(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${A2 && "border-black"}`}
-          >
-            {tuning == "standard" ? "A2" : "G#2"}
-          </button>
-          <button
-            onClick={() => {handleE2(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${E2 && "border-black"}`}
-          >
-            {tuning == "standard" ? "E2" : "D#2"}
-          </button>
+      {instrument == "guitar" ? (
+        <div className="flex p-2 relative justify-center overflow-hidden mt-5 sm:mt-0">
+          <div className="flex gap-x-2 absolute right-10 sm:right-50 top-0">
+            <p>Manually</p>
+            <Switch
+              className="hover:cursor-pointer"
+              checked={!auto}
+              onClick={handleSwitch}
+            />
+          </div>
+          <div className="flex flex-col absolute left-10 sm:left-85 top-17 gap-y-4  ">
+            <button
+              onClick={() => {
+                (handleD3(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${D3 && "border-black"}`}
+            >
+              {tuning == "standard" ? "D3" : "C#3"}
+            </button>
+            <button
+              onClick={() => {
+                (handleA2(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${A2 && "border-black"}`}
+            >
+              {tuning == "standard" ? "A2" : "G#2"}
+            </button>
+            <button
+              onClick={() => {
+                (handleE2(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${E2 && "border-black"}`}
+            >
+              {tuning == "standard" ? "E2" : "D#2"}
+            </button>
+          </div>
+          <img className="h-102 " src="/guitar1.png" alt="" />
+          <div className="flex flex-col absolute right-10 sm:right-85 top-17 gap-y-4">
+            <button
+              onClick={() => {
+                (handleG3(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${G3 && "border-black"}`}
+            >
+              {tuning == "standard" ? "G3" : "F#3"}
+            </button>
+            <button
+              onClick={() => {
+                (handleB3(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${B3 && "border-black"}`}
+            >
+              {tuning == "standard" ? "B3" : "A#3"}
+            </button>
+            <button
+              onClick={() => {
+                (handleE4(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${E4 && "border-black"}`}
+            >
+              {tuning == "standard" ? "E4" : "D#4"}
+            </button>
+          </div>
         </div>
-        <img className="h-102 " src="/guitar1.png" alt="" />
-        <div className="flex flex-col absolute right-10 sm:right-85 top-17 gap-y-4">
-          <button
-            onClick={() => {handleG3(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${G3 && "border-black"}`}
-          >
-            {tuning == "standard" ? "G3" : "F#3"}
-          </button>
-          <button
-            onClick={() => {handleB3(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${B3 && "border-black"}`}
-          >
-            {tuning == "standard" ? "B3" : "A#3"}
-          </button>
-          <button
-            onClick={() => {handleE4(),setAuto(false)}}
-            className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${E4 && "border-black"}`}
-          >
-            {tuning == "standard" ? "E4" : "D#4"}
-          </button>
+      ) : (
+        // ukulele
+        <div className="flex p-2 relative justify-center overflow-hidden mt-5 sm:mt-0">
+          <div className="flex gap-x-2 absolute right-10 sm:right-50 top-0">
+            <p>Manually</p>
+            <Switch
+              className="hover:cursor-pointer"
+              checked={!auto}
+              onClick={handleSwitch}
+            />
+          </div>
+          <div className="flex flex-col absolute left-10 sm:left-84 top-19 gap-y-6  ">
+            <button
+              onClick={() => {
+                (handle_C4(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${c4 && "border-black"}`}
+            >
+              {tuning == "standard"
+                ? "C4"
+                : `${tuning == "low_g" ? "C4" : "B3"}`}
+            </button>
+            <button
+              onClick={() => {
+                (handle_G4(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${g4 && "border-black"}`}
+            >
+              {tuning == "standard"
+                ? "G4"
+                : `${tuning == "low_g" ? "G3" : "F#4"}`}
+            </button>
+          </div>
+          <img className="h-102 " src="/ukulele.png" alt="" />
+          <div className="flex flex-col absolute right-10 sm:right-85 top-19 gap-y-6 ">
+            <button
+              onClick={() => {
+                (handle_E4(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${e4 && "border-black"}`}
+            >
+              {tuning == "standard"
+                ? "E4"
+                : `${tuning == "low_g" ? "E4" : "D#4"}`}
+            </button>
+            <button
+              onClick={() => {
+                (handle_A4(), setAuto(false));
+              }}
+              className={` bg-gray-300 rounded-full h-11 w-11  hover:cursor-pointer border-2 ${a4 && "border-black"}`}
+            >
+              {tuning == "standard"
+                ? "A4"
+                : `${tuning == "low_g" ? "A4" : "G#4"}`}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
